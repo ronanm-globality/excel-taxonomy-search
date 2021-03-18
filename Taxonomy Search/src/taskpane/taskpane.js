@@ -15,29 +15,68 @@ Office.onReady(info => {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
+    document.getElementById("place").onclick = pickResult;
   }
 });
 
-export async function run() {
+async function run() {
   try {
     await Excel.run(async context => {
-      /**
-       * Insert your Excel code here
-       */
-      const range = context.workbook.getSelectedRange();
 
-      // Read the range address
-      range.load("address");
+      if (!await isSingleCellSelected(context)) {
+        return
+      }
+      var value = await getValueFromSingleSelectedCell(context);
 
-      console.log(range);
+      var searchResults = await search(value);
+      console.log(searchResults);
 
-      // Update the fill color
-      range.format.fill.color = "yellow";
-
-      await context.sync();
-      console.log(`The range address was ${range.address}.`);
     });
   } catch (error) {
     console.error(error);
   }
+}
+
+async function pickResult() {
+  try {
+    await Excel.run(async context => {
+      // Does it just go back to the selected cell? Or the original one?
+      var pickedResult = "ronan";
+
+      if (!await isSingleCellSelected(context)) {
+        return
+      }
+
+      await placeResultInTargetCell(context, pickedResult);
+
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function isSingleCellSelected(context) {
+  const range = context.workbook.getSelectedRange();
+  range.load("cellCount");
+  await context.sync();
+  return range.cellCount === 1;
+}
+
+async function getValueFromSingleSelectedCell(context) {
+  const range = context.workbook.getSelectedRange();
+  range.load("values");
+  await context.sync();
+  // Values are returned as a 2D array. We've already checked it's a single value.
+  return range.values[0][0];
+}
+
+async function search(value) {
+  console.log("searching for:", value);
+  return ["Ireland"]
+}
+
+async function placeResultInTargetCell(context, value) {
+  const range = context.workbook.getSelectedRange();
+  range.values = [[value]];
+  await context.sync();
 }
