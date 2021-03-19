@@ -78,6 +78,7 @@ function findSearchStrategy(taxonomyType) {
   const strategies = {
     office: {searchFunction: getOfficeLocations},
     country: {searchFunction: getCountries},
+    it_package: {searchFunction: getItPackages},
   }
 
   if (!(taxonomyType in strategies)) {
@@ -116,6 +117,16 @@ async function handleSearchResultClick(event) {
 
 async function getCountries(searchTerm) {
   var url = "https://levant.dev.globality.io/api/v1/country?limit=10&suggestion=";
+  var response = await fetch(url + searchTerm);
+  var json = await response.json();
+
+  return json.items.map(function (item) {
+    return {uri: item.uri, label: item.label}
+  });
+}
+
+async function getItPackages(searchTerm) {
+  var url = "https://levant.test.globality.io/api/v1/it_package?limit=10&suggestion=";
   var response = await fetch(url + searchTerm);
   var json = await response.json();
 
