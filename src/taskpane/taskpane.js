@@ -84,8 +84,9 @@ async function handleGlobalClick(event) {
 async function handleSearchResultClick(event) {
   try {
     await Excel.run(async context => {
-      var name = event.target.getAttribute('data-name');
-      await placeResultInTargetCell(context, name);
+      var outputType = document.querySelector('input[name=outputType]:checked').value;
+      var output = (outputType=="uri") ? event.target.getAttribute('data-uri') : event.target.getAttribute('data-name');
+      await placeResultInTargetCell(context, output);
     });
   } catch (error) {
     console.error(error);
