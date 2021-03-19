@@ -135,9 +135,9 @@ async function getItPackages(searchTerm) {
   });
 }
 
-async function getOfficeLocations(query) {
+async function getOfficeLocations(searchTerm) {
   var url = "https://levant.dev.globality.io/api/v1/place?smaller_than_country=true&limit=10&suggestion=";
-  var response = await fetch(url + query);
+  var response = await fetch(url + searchTerm);
   var json = await response.json();
   return json.items.map(function (item) {
     return {uri: item.uri, label: item.qualifiedName}
@@ -182,8 +182,9 @@ function disableSpinner() {
 }
 
 function toggleOptions() {
-  // Should toggle the caret icon we display too to flip over and back.
   document.getElementById("options-content").classList.toggle("hidden");
+  document.getElementById("options-caret-down").classList.toggle("hidden");
+  document.getElementById("options-caret-up").classList.toggle("hidden");
 }
 
 function searchTypeUpdated(update) {
