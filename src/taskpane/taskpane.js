@@ -119,16 +119,18 @@ async function getCountries(searchTerm) {
   var response = await fetch(url + searchTerm);
   var json = await response.json();
 
-  // Can map to a standard interface here?
-  // Need a label and a uri.
-  return json.items;
+  return json.items.map(function (item) {
+    return {uri: item.uri, label: item.label}
+  });
 }
 
 async function getOfficeLocations(query) {
   var url = "https://levant.dev.globality.io/api/v1/place?smaller_than_country=true&limit=10&suggestion=";
   var response = await fetch(url + query);
   var json = await response.json();
-  return json.items
+  return json.items.map(function (item) {
+    return {uri: item.uri, label: item.qualifiedName}
+  });
 }
 
 async function displaySearchResults(results) {
@@ -139,7 +141,7 @@ async function displaySearchResults(results) {
   for(var i = 0; i < results.length; i++) {
     var result = results[i];
     var li = document.createElement("li");
-    li.appendChild(document.createTextNode(result.qualifiedName));
+    li.appendChild(document.createTextNode(result.label));
     li.setAttribute("class", "searchResult");
     li.setAttribute("data-name", result.label);
     li.setAttribute("data-uri", result.uri);
