@@ -14,7 +14,6 @@ import "../../assets/icon-80.png";
 // - Need a choice between value we want to output, like Label or URI.
 // - Need choice(?) of different taxonomies? Display values need to be different per each type.
 // - Need to update the logo to something Globality.
-// - Need to add a Globality logo to search pane?
 
 Office.onReady(info => {
   if (info.host === Office.HostType.Excel) {
@@ -93,17 +92,14 @@ async function handleSearchResultClick(event) {
 }
 
 async function getCountries(searchTerm) {
-  // TODO: Query for office locations, confirm what endpoint to use for that.
   var url = "https://levant.dev.globality.io/api/v1/country?limit=10&suggestion=";
   var response = await fetch(url + searchTerm);
   return response.json();
 }
 
 async function getOfficeLocations(query) {
-  // TODO: Query for office locations, confirm what endpoint to use for that.
   var url = "https://levant.dev.globality.io/api/v1/place?smaller_than_country=true&limit=10&suggestion=";
   var response = await fetch(url + query);
-  console.log(response);
   return response.json();
 }
 
@@ -128,7 +124,6 @@ async function displaySearchResults(results) {
     li.appendChild(document.createTextNode("No Results.."));
     targetList.appendChild(li);
   }
-  // TODO: Add a state for no results. Maybe a helpful <No Results> message.
 }
 
 function clearOldSearchResults() {
