@@ -16,22 +16,37 @@
     <!-- Open Sans font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/766217dfef.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="globality-logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 31" id="globality-logo"><path d="M26.672 1.14h4.442v24.29h-4.442zM43.065 8.496c5.024 0 8.817 3.866 8.817 8.656 0 4.79-3.793 8.62-8.817 8.62s-8.818-3.83-8.818-8.62c0-4.79 3.794-8.656 8.818-8.656zm0 13.172c2.597 0 4.374-2.02 4.374-4.516 0-2.498-1.778-4.55-4.375-4.55-2.598 0-4.375 2.052-4.375 4.55 0 2.497 1.777 4.516 4.375 4.516zM55.015 25.43V1.14h4.443v8.895c1.3-1.026 2.87-1.54 4.682-1.54 4.51 0 8.134 3.764 8.134 8.657 0 2.258-.82 4.31-2.12 5.816-1.468 1.71-3.792 2.805-6.253 2.805-1.674 0-3.246-.513-4.613-1.676v1.334h-4.272zm4.443-5.815c.854 1.232 2.324 2.053 4 2.053 2.493 0 4.373-1.916 4.373-4.516 0-2.395-1.673-4.55-4.27-4.55-1.71 0-3.18.82-4.102 2.052v4.96zM91.85 25.43h-4.273v-1.333c-1.367 1.163-2.94 1.676-4.614 1.676-2.46 0-4.784-1.094-6.254-2.805-1.3-1.505-2.12-3.558-2.12-5.816 0-4.893 3.623-8.656 8.134-8.656 1.88 0 3.554.616 4.853 1.676V8.838h4.272V25.43zm-4.444-10.776a5.094 5.094 0 0 0-4.1-2.052c-2.598 0-4.273 2.155-4.273 4.55 0 2.6 1.88 4.516 4.375 4.516 1.674 0 3.144-.82 3.998-2.053v-4.96zM96.35 1.14h4.442v24.29H96.35zM107.513.114c1.606 0 2.905 1.23 2.905 2.84 0 1.607-1.3 2.84-2.905 2.84-1.606 0-2.905-1.233-2.905-2.84 0-1.61 1.3-2.84 2.905-2.84zm-2.22 8.724h4.442V25.43h-4.443V8.84zM113.7 4.22h4.444v4.618h5.468v3.764h-5.468v6.33c0 1.025.17 1.64.547 2.086.445.513 1.163.82 2.256.82.65 0 1.504-.102 1.812-.17l.683 3.763c-.58.207-1.913.343-2.767.343-2.666 0-4.614-.89-5.742-2.395-.853-1.13-1.23-2.6-1.23-4.96v-14.2M129.052 29.838l2.78-6.083-7.417-14.917h4.888l4.853 9.956 4.477-9.956h4.682l-9.615 21h-4.648M18.98 12.582h-4.682l3.463 7.615c-1.294.89-2.908 1.478-4.84 1.478-4.63 0-8.194-3.57-8.194-8.235 0-4.564 3.428-8.235 7.987-8.235 2.365 0 4.388 1.03 5.827 2.47l2.982-3.157c-2.16-2.093-5.21-3.43-8.775-3.43C5.275 1.087.1 6.542.1 13.44s5.243 12.353 12.716 12.353c2.557 0 4.67-1.002 6.548-2.074l.762 1.71h4.648L18.98 12.583" fill="#1c2e53" fill-rule="evenodd"></path></svg>
     </div>
 
-    <button id="searchButton" class="block">Search</button>
+    <button id="searchButton" class="block">Search<i class="fas fa-search"></i></button>
+    <hr>
+    <div class="options">
+        Options<i class="fas fa-angle-down options"></i>
+    </div>
+    <div id="options-content" class="hidden">
+        <form>
+            <label for="search-type-select">Search Type:</label>
+            <select name="search-type" id="search-type-select">
+                <option value="office" selected="selected">Office Locations</option>
+                <option value="country">Countries</option>
+            </select>
+        </form>
+    </div>
+    <hr>
     <div class="searchResults">
         <ul id="resultsTarget">
           <li>...</li>
         </ul>
+        <!-- Spinner which is off by default. We toggle on/off when querying search results. -->
         <div id="loader" class="loader" style="display: none"></div>
     </div>
 </body>
 
 </html>
-
-
-

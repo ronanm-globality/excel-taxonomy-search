@@ -15,10 +15,14 @@ import "../../assets/icon-80.png";
 // - Need choice(?) of different taxonomies? Display values need to be different per each type.
 // - Need to update the logo to something Globality.
 
+// Should be in sync with the default selected value in the html.
+let currentSearchType = "office";
+
 Office.onReady(info => {
   if (info.host === Office.HostType.Excel) {
     document.getElementById("searchButton").onclick = runSearch;
     document.addEventListener("click", handleGlobalClick, false);
+    document.getElementById('search-type-select').addEventListener('change', searchTypeUpdated);
   }
 });
 
@@ -62,10 +66,26 @@ async function getValueFromSingleSelectedCell(context) {
 }
 
 async function search(searchTerm) {
-  // Maybe delegate to the different types of search here?
-  var results = await getOfficeLocations(searchTerm);
+  let strategy = findSearchStrategy(currentSearchType);
+  var results = await strategy.searchFunction(searchTerm);
   // var countries = await getCountries(searchTerm);
-  return results.items;
+
+  // Maybe make each of the functions get their own data out first.
+  return results;
+}
+
+function findSearchStrategy(taxonomyType) {
+  const strategies = {
+    office: {searchFunction: getOfficeLocations},
+    country: {searchFunction: getCountries},
+  }
+
+  if (!(taxonomyType in strategies)) {
+    // TODO: Handle this case better.
+    return null;
+  }
+
+  return strategies[taxonomyType];
 }
 
 async function placeResultInTargetCell(context, value) {
@@ -77,6 +97,8 @@ async function placeResultInTargetCell(context, value) {
 async function handleGlobalClick(event) {
   if (event.target.matches('.searchResult')) {
     await handleSearchResultClick(event);
+  } else if (event.target.matches('.options')) {
+    toggleOptions();
   }
 }
 
@@ -94,13 +116,17 @@ async function handleSearchResultClick(event) {
 async function getCountries(searchTerm) {
   var url = "https://levant.dev.globality.io/api/v1/country?limit=10&suggestion=";
   var response = await fetch(url + searchTerm);
-  return response.json();
+  var json = await response.json();
+
+  // Can map to a standard interface here?
+  return json.items;
 }
 
 async function getOfficeLocations(query) {
   var url = "https://levant.dev.globality.io/api/v1/place?smaller_than_country=true&limit=10&suggestion=";
   var response = await fetch(url + query);
-  return response.json();
+  var json = await response.json();
+  return json.items
 }
 
 async function displaySearchResults(results) {
@@ -120,7 +146,7 @@ async function displaySearchResults(results) {
 
   // No Results
   if (results.length === 0) {
-    var li = document.createElement("li");
+    li = document.createElement("li");
     li.appendChild(document.createTextNode("No Results.."));
     targetList.appendChild(li);
   }
@@ -136,5 +162,15 @@ function enableSpinner() {
 }
 
 function disableSpinner() {
+  // Could change this to use the hidden class like below.
   document.getElementById("loader").style.display = "none";
+}
+
+function toggleOptions() {
+  // Should toggle the caret icon we display too to flip over and back.
+  document.getElementById("options-content").classList.toggle("hidden");
+}
+
+function searchTypeUpdated(update) {
+  currentSearchType = update.target.value;
 }
