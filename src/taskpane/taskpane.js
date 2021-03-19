@@ -105,8 +105,9 @@ async function handleGlobalClick(event) {
 async function handleSearchResultClick(event) {
   try {
     await Excel.run(async context => {
-      var name = event.target.getAttribute('data-name');
-      await placeResultInTargetCell(context, name);
+      var outputType = document.querySelector('input[name=outputType]:checked').value;
+      var output = (outputType=="uri") ? event.target.getAttribute('data-uri') : event.target.getAttribute('data-name');
+      await placeResultInTargetCell(context, output);
     });
   } catch (error) {
     console.error(error);
@@ -119,6 +120,7 @@ async function getCountries(searchTerm) {
   var json = await response.json();
 
   // Can map to a standard interface here?
+  // Need a label and a uri.
   return json.items;
 }
 
@@ -139,7 +141,7 @@ async function displaySearchResults(results) {
     var li = document.createElement("li");
     li.appendChild(document.createTextNode(result.qualifiedName));
     li.setAttribute("class", "searchResult");
-    li.setAttribute("data-name", result.qualifiedName);  // Maybe something better than label here?
+    li.setAttribute("data-name", result.label);
     li.setAttribute("data-uri", result.uri);
     targetList.appendChild(li);
   }
