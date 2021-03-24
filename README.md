@@ -2,7 +2,7 @@
 
 This project is an add-in for Excel to add a component to be able to perform a search on the internal Globality Taxonomies directly from Excel.
 
-!(App Screenshot)[https://i.imgur.com/70gaXGY.png]
+![App Screenshot](https://i.imgur.com/70gaXGY.png)
 
 ## How to run locally?
 
