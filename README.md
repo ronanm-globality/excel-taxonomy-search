@@ -5,6 +5,10 @@ This project is an add-in for Excel to add a component to be able to perform a s
 ![App Screenshot](https://i.imgur.com/70gaXGY.png)
 
 ## How to run locally?
+Install dependencies:
+```
+npm install
+```
 
 There is a built in command to run a local server:
 ```
