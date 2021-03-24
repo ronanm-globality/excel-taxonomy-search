@@ -11,9 +11,9 @@ import "../../assets/icon-80.png";
 /* global console, document, Excel, Office */
 
 // TODO:
-// - Need a choice between value we want to output, like Label or URI.
-// - Need choice(?) of different taxonomies? Display values need to be different per each type.
-// - Need to update the logo to something Globality.
+// Nice suggestion from Albert: Could add an autodiscovery of levant endpoints on startup
+//    based on the swagger, and add at least a basic implementation with assumptions on the
+//    `suggestion` query param.
 
 // Should be in sync with the default selected value in the html.
 let currentSearchType = "office";
@@ -36,6 +36,9 @@ async function runSearch() {
       var value = await getValueFromSingleSelectedCell(context);
 
       // TODO: Maybe bail if there is no search value?
+      if (value === "") {
+        return;
+      }
 
       clearOldSearchResults();
       enableSpinner();
@@ -68,9 +71,7 @@ async function getValueFromSingleSelectedCell(context) {
 async function search(searchTerm) {
   let strategy = findSearchStrategy(currentSearchType);
   var results = await strategy.searchFunction(searchTerm);
-  // var countries = await getCountries(searchTerm);
 
-  // Maybe make each of the functions get their own data out first.
   return results;
 }
 
