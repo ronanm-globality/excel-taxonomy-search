@@ -1,0 +1,217 @@
+/*
+ * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ * See LICENSE in the project root for license information.
+ */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+.ms-welcome__header {
+   padding: 20px;
+   padding-bottom: 30px;
+   padding-top: 100px;
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: column;
+   flex-direction: column;
+   align-items: center;
+}
+.ms-welcome__main {
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: column;
+   flex-direction: column;
+   -webkit-flex-wrap: nowrap;
+   flex-wrap: nowrap;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-flex: 1 0 0;
+   flex: 1 0 0;
+   padding: 10px 20px;
+}
+
+.ms-welcome__main > h2 {
+    width: 100%;
+    text-align: center;
+}
+
+.ms-welcome__features {
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+.ms-welcome__features.ms-List .ms-ListItem {
+    padding-bottom: 20px;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
+    margin-right: 10px;
+}
+
+.ms-welcome__action.ms-Button--hero {
+    margin-top: 30px;
+}
+
+.ms-Button.ms-Button--hero .ms-Button-label {
+  color: #0078d7;
+}
+
+.ms-Button.ms-Button--hero:hover .ms-Button-label,
+.ms-Button.ms-Button--hero:focus .ms-Button-label{
+  color: #005a9e;
+  cursor: pointer;
+}
+
+b {
+    font-weight: bold;
+}
+
+.block {
+    display: block;
+    width: 95%;
+    border: none;
+    background-color: #1c2e53;
+    color: white;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    margin: 8px 8px;
+}
+.block:hover {
+    background-color: #44526f;
+    /*color: black;*/
+}
+
+
+.searchResults {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 8px;
+}
+
+.searchResults li {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block;
+}
+
+.searchResults li:hover:not(.header) {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.globality-logo {
+    width: 80%;
+    display: block;
+    margin: 10px auto;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.options {
+  margin: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+#searchButton i {
+  float: right;
+}
+
+.options i {
+  margin: 5px;
+  float: right;
+}
+
+#options-content {
+  margin: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Spinner stuff */
+.loader,
+.loader:before,
+.loader:after {
+  background: #1c2e53;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #1c2e53;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
